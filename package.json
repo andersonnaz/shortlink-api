@@ -1,0 +1,11 @@
+{
+  "name": "shortlink-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Anderson Sales",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.13",
+    "typescript": "^5.3.3"
+  }
+}
