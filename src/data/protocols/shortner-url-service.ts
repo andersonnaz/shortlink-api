@@ -1,5 +1,5 @@
 export interface ShortnerUrl {
-    shortner(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result>
+    exec(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result>
 }
 
 export namespace ShortnerUrl {
