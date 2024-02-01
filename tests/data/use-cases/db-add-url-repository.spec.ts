@@ -99,6 +99,14 @@ describe('DbAddUrlRepository', () => {
             const promise = sut.add(urlProps.longUrl)
             await expect(promise).rejects.toThrow()
         })
+
+        it('Should calls Shortner with correct value', async () => {
+            const { sut, loadByLongerUrlRepositoryStub, shortnerStub } = makeSut()
+            jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockReturnValueOnce(undefined)
+            const shortnerStubSpy = jest.spyOn(shortnerStub, 'exec')
+            await sut.add(urlProps.longUrl)
+            expect(shortnerStubSpy).toHaveBeenCalledWith(urlProps.longUrl)
+        })
     })
 
     it('Should return a shortUrl on success', async () => {
