@@ -29,7 +29,7 @@ const makeLoadByLongerUrlRepository = (): LoadByLongerUrlRepository => {
 
 const makeShortner = (): ShortnerUrl => {
     class ShortnerUrlStub implements ShortnerUrl {
-        shortner(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
+        exec(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
             return new Promise(resolve => resolve({
                 shortUrl: 'any_url'
             }))
@@ -64,14 +64,21 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DbAddUrlRepository', () => {
+    const urlProps = {
+        id: 'any_id',
+        shortUrl: 'any_url',
+        longUrl: 'any_url'
+    }
     it('Should return a shortUrl if already exists', async () => {
         const { sut } = makeSut()
-        const longUrl = 'any_url'
-        const result = await sut.add(longUrl)
-        expect(result).toEqual({
-            id: 'any_id',
-            shortUrl: 'any_url',
-            longUrl
-        })
+        const result = await sut.add(urlProps.longUrl)
+        expect(result).toEqual(urlProps)
+    })
+
+    it('Should return a shortUrl on success', async () => {
+        const { sut, loadByLongerUrlRepositoryStub } = makeSut()
+        jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockReturnValueOnce(undefined)
+        const result = await sut.add(urlProps.longUrl)
+        expect(result).toEqual(urlProps)
     })
 })
