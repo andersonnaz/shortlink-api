@@ -69,17 +69,26 @@ describe('DbAddUrlRepository', () => {
         shortUrl: 'any_url',
         longUrl: 'any_url'
     }
-    it('Should return a shortUrl if already exists', async () => {
-        const { sut } = makeSut()
-        const result = await sut.add(urlProps.longUrl)
-        expect(result).toEqual(urlProps)
-    })
+    describe('LoadByLongerUrlRepository', () => {
+        it('Should return a shortUrl if already exists', async () => {
+            const { sut } = makeSut()
+            const result = await sut.add(urlProps.longUrl)
+            expect(result).toEqual(urlProps)
+        })
+    
+        it('Should throw if LoadUrlRepository throws', async () => {
+            const { sut, loadByLongerUrlRepositoryStub } = makeSut()
+            jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockRejectedValueOnce(new Error())
+            const promise = sut.add(urlProps.longUrl)
+            await expect(promise).rejects.toThrow()
+        })
 
-    it('Should throw if LoadUrlRepository throws', async () => {
-        const { sut, loadByLongerUrlRepositoryStub } = makeSut()
-        jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockRejectedValueOnce(new Error())
-        const promise = sut.add(urlProps.longUrl)
-        await expect(promise).rejects.toThrow()
+        it('Should calls loadUrlRepository with correct value', async () => {
+            const { sut, loadByLongerUrlRepositoryStub } = makeSut()
+            const loadUrlRepositorySpy = jest.spyOn(loadByLongerUrlRepositoryStub, 'load')
+            await sut.add(urlProps.longUrl)
+            expect(loadUrlRepositorySpy).toHaveBeenCalledWith(urlProps.longUrl)
+        })
     })
 
     it('Should return a shortUrl on success', async () => {
