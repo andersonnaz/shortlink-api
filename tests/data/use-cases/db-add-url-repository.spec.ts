@@ -111,11 +111,22 @@ describe('DbAddUrlRepository', () => {
 
     describe('AddUrlRepository', () => {
         it('Should throw if AddUrlRepository throws', async () => {
-            const { sut, loadByLongerUrlRepositoryStub, shortnerStub, addUrlRepositoryStub } = makeSut()
+            const { sut, loadByLongerUrlRepositoryStub, addUrlRepositoryStub } = makeSut()
             jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockReturnValueOnce(undefined)
             jest.spyOn(addUrlRepositoryStub, 'add').mockRejectedValueOnce(new Error())
             const promise = sut.add(urlProps.longUrl)
             await expect(promise).rejects.toThrow()
+        })
+
+        it('Should calls AddUrlRepository with correct values', async () => {
+            const { sut, loadByLongerUrlRepositoryStub, addUrlRepositoryStub } = makeSut()
+            jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockReturnValueOnce(undefined)
+            const addUrlRepositorySpy = jest.spyOn(addUrlRepositoryStub, 'add')
+            await sut.add(urlProps.longUrl)
+            expect(addUrlRepositorySpy).toHaveBeenCalledWith({
+                longUrl: urlProps.longUrl,
+                shortUrl: urlProps.shortUrl
+            })
         })
     })
 
