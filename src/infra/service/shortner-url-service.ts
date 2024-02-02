@@ -14,6 +14,10 @@ export class ShortnerUrlService implements ShortnerUrl {
     }
 
     async exec(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
+      const randomNumber = await this.randomNumberGenerator.exec()
+      if(randomNumber < 0){
+        throw new Error()
+      }
       return {
         shortUrl: ''
       }
