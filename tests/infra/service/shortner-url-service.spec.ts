@@ -62,5 +62,12 @@ describe('ShortnerUrlService', () => {
             await expect(promise).rejects.toThrow()
         })
 
+        it('Should return an Error if RandomNumberGenerator returns a number smaller than zero', async () => {
+            const { sut, randomNumberGeneratorStub } = makeSut()
+            jest.spyOn(randomNumberGeneratorStub, 'exec').mockReturnValueOnce(new Promise(resolve => resolve(-123456)))
+            const promise = sut.exec('any_url')
+            await expect(promise).rejects.toThrow()
+        })
+
     })
 })
