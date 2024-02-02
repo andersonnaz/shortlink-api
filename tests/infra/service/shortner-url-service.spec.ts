@@ -70,4 +70,13 @@ describe('ShortnerUrlService', () => {
         })
 
     })
+
+    describe('Encoder', () => {
+        it('Should throw if Encoder throws', async () => {
+            const { sut, encoderStub } = makeSut()
+            jest.spyOn(encoderStub, 'encode').mockRejectedValueOnce(new Error())
+            const promise = sut.exec('any_url')
+            await expect(promise).rejects.toThrow()
+        })
+    })
 })
