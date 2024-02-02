@@ -80,6 +80,12 @@ describe('ShortnerUrlService', () => {
                 await expect(promise).rejects.toThrow()
             }) 
         })
+
+        it('Should return a value encoded', async () => {
+            const { sut } = makeSut()
+            const result = await sut.encode('any_url')
+            expect(result).toStrictEqual({ value: 'any_url' })
+        })
     })
 
     describe('Decode Method', () => {
@@ -88,7 +94,7 @@ describe('ShortnerUrlService', () => {
             jest.spyOn(decoderStub, 'decode').mockRejectedValueOnce(new Error())
             const promise = sut.decode('any_url')
             await expect(promise).rejects.toThrow()
-        }) 
+        })
 
     })
 })
