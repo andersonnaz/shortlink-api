@@ -21,10 +21,10 @@ export class DbAddUrlRepository implements AddShortenUrl {
                 longUrl: longUrl
             }
         }
-        const shortnerUrlResult = await this.shortner.exec(longUrl)
+        const shortnerUrlResult = await this.shortner.encode(longUrl)
         const result = await this.addUrlRepository.add({
             longUrl,
-            shortUrl: shortnerUrlResult.shortUrl
+            shortUrl: shortnerUrlResult.value as string
         })
         return result
     }

@@ -29,11 +29,18 @@ const makeLoadByLongerUrlRepository = (): LoadByLongerUrlRepository => {
 
 const makeShortner = (): ShortnerUrl => {
     class ShortnerUrlStub implements ShortnerUrl {
-        exec(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
+        encode(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
             return new Promise(resolve => resolve({
-                shortUrl: 'any_url'
+                value: 'any_url'
             }))
         }
+
+        decode(shorterUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
+            return new Promise(resolve => resolve({
+                value: 'any_url'
+            }))
+        }
+
     }
     return new ShortnerUrlStub()
 }
@@ -95,7 +102,7 @@ describe('DbAddUrlRepository', () => {
         it('Should throw if Shortner throws', async () => {
             const { sut, loadByLongerUrlRepositoryStub, shortnerStub } = makeSut()
             jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockReturnValueOnce(undefined)
-            jest.spyOn(shortnerStub, 'exec').mockRejectedValueOnce(new Error())
+            jest.spyOn(shortnerStub, 'encode').mockRejectedValueOnce(new Error())
             const promise = sut.add(urlProps.longUrl)
             await expect(promise).rejects.toThrow()
         })
@@ -103,7 +110,7 @@ describe('DbAddUrlRepository', () => {
         it('Should calls Shortner with correct value', async () => {
             const { sut, loadByLongerUrlRepositoryStub, shortnerStub } = makeSut()
             jest.spyOn(loadByLongerUrlRepositoryStub, 'load').mockReturnValueOnce(undefined)
-            const shortnerStubSpy = jest.spyOn(shortnerStub, 'exec')
+            const shortnerStubSpy = jest.spyOn(shortnerStub, 'encode')
             await sut.add(urlProps.longUrl)
             expect(shortnerStubSpy).toHaveBeenCalledWith(urlProps.longUrl)
         })
