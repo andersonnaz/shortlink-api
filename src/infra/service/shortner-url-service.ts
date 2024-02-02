@@ -13,14 +13,21 @@ export class ShortnerUrlService implements ShortnerUrl {
       this.decoder = decoder
     }
 
-    async exec(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
+    async encode(longerUrl: ShortnerUrl.Params): Promise<ShortnerUrl.Result> {
       const randomNumber = await this.randomNumberGenerator.exec()
       if(randomNumber < 0){
         throw new Error()
       }
       const shortUrl = await this.encoder.encode(randomNumber)
       return {
-        shortUrl: ''
+        value: shortUrl
+      }
+    }
+
+    async decode(shortUrl: string): Promise<ShortnerUrl.Result> {
+      const id = await this.decoder.decode(shortUrl)
+      return {
+        value: id
       }
     }
         
