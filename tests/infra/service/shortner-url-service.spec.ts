@@ -96,5 +96,11 @@ describe('ShortnerUrlService', () => {
             await expect(promise).rejects.toThrow()
         })
 
+        it('Should return a value decoded', async () => {
+            const { sut } = makeSut()
+            const result = await sut.decode('any_url')
+            expect(result).toStrictEqual({ value: 123456 })
+        })
+
     })
 })
