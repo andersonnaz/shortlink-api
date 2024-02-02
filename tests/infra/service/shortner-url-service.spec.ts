@@ -54,29 +54,41 @@ const makeSut = (): SutTypes => {
 }
 
 describe('ShortnerUrlService', () => {
-    describe('RandomNumberGenerator', () => {
-        it('Should throw if RandomNumberGenerator throws', async () => {
-            const { sut, randomNumberGeneratorStub } = makeSut()
-            jest.spyOn(randomNumberGeneratorStub, 'exec').mockRejectedValueOnce(new Error())
-            const promise = sut.exec('any_url')
-            await expect(promise).rejects.toThrow()
+    describe('Encode method', () => {
+        describe('RandomNumberGenerator', () => {
+            it('Should throw if RandomNumberGenerator throws', async () => {
+                const { sut, randomNumberGeneratorStub } = makeSut()
+                jest.spyOn(randomNumberGeneratorStub, 'exec').mockRejectedValueOnce(new Error())
+                const promise = sut.encode('any_url')
+                await expect(promise).rejects.toThrow()
+            })
+    
+            it('Should return an Error if RandomNumberGenerator returns a number smaller than zero', async () => {
+                const { sut, randomNumberGeneratorStub } = makeSut()
+                jest.spyOn(randomNumberGeneratorStub, 'exec').mockReturnValueOnce(new Promise(resolve => resolve(-123456)))
+                const promise = sut.encode('any_url')
+                await expect(promise).rejects.toThrow()
+            })
+    
         })
-
-        it('Should return an Error if RandomNumberGenerator returns a number smaller than zero', async () => {
-            const { sut, randomNumberGeneratorStub } = makeSut()
-            jest.spyOn(randomNumberGeneratorStub, 'exec').mockReturnValueOnce(new Promise(resolve => resolve(-123456)))
-            const promise = sut.exec('any_url')
-            await expect(promise).rejects.toThrow()
+    
+        describe('Encoder', () => {
+            it('Should throw if Encoder throws', async () => {
+                const { sut, encoderStub } = makeSut()
+                jest.spyOn(encoderStub, 'encode').mockRejectedValueOnce(new Error())
+                const promise = sut.encode('any_url')
+                await expect(promise).rejects.toThrow()
+            }) 
         })
-
     })
 
-    describe('Encoder', () => {
-        it('Should throw if Encoder throws', async () => {
-            const { sut, encoderStub } = makeSut()
-            jest.spyOn(encoderStub, 'encode').mockRejectedValueOnce(new Error())
-            const promise = sut.exec('any_url')
+    describe('Decode Method', () => {
+        it('Should throw if Decoder throws', async () => {
+            const { sut, decoderStub } = makeSut()
+            jest.spyOn(decoderStub, 'decode').mockRejectedValueOnce(new Error())
+            const promise = sut.decode('any_url')
             await expect(promise).rejects.toThrow()
-        })
+        }) 
+
     })
 })
