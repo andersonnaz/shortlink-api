@@ -18,6 +18,7 @@ export class ShortnerUrlService implements ShortnerUrl {
       if(randomNumber < 0){
         throw new Error()
       }
+      const shortUrl = await this.encoder.encode(randomNumber)
       return {
         shortUrl: ''
       }
