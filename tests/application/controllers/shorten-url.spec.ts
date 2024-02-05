@@ -47,4 +47,11 @@ describe('ShortenUrl', () => {
         const httpResponse = await sut.handle(fakeHttpRequest)
         expect(httpResponse).toEqual(serverError(fakeError))
     })
+
+    it('Should call ShortenUrl with the correct value', async () => {
+        const { sut, shortenUrlStub } = makeSut()
+        const shortenUrlSpy = jest.spyOn(shortenUrlStub, 'add')
+        await sut.handle(fakeHttpRequest)
+        expect(shortenUrlSpy).toHaveBeenCalledWith(fakeHttpRequest.body.longUrl)
+    })
 })
