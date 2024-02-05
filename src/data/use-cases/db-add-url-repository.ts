@@ -1,19 +1,18 @@
 import { AddShortenUrl } from "../../domain/use-cases/add-shorten-url";
-import { AddUrlRepository, LoadByLongerUrlRepository, ShortnerUrl } from "../protocols";
+import { UrlRepository } from "../../infra/repositories/url-repository";
+import { ShortnerUrl } from "../protocols";
 
 export class DbAddUrlRepository implements AddShortenUrl {
-    private readonly addUrlRepository: AddUrlRepository
-    private readonly loadByLongerUrlRepository: LoadByLongerUrlRepository
+    private readonly urlRepository: UrlRepository
     private readonly shortner: ShortnerUrl
 
-    constructor({addUrlRepository, loadUrlRepository, shortner}: AddShortenUrl.Dependencies){
-        this.addUrlRepository = addUrlRepository
-        this.loadByLongerUrlRepository = loadUrlRepository
+    constructor({urlRepository, shortner}: AddShortenUrl.Dependencies){
+        this.urlRepository = urlRepository
         this.shortner = shortner
     }
     
     async add(longUrl: AddShortenUrl.Params): Promise<AddShortenUrl.Result> {
-        const shortUrl = await this.loadByLongerUrlRepository.load(longUrl)
+        const shortUrl = await this.urlRepository.load(longUrl)
         if(shortUrl){
             return {
                 id: shortUrl.id,
@@ -22,7 +21,7 @@ export class DbAddUrlRepository implements AddShortenUrl {
             }
         }
         const shortnerUrlResult = await this.shortner.encode(longUrl)
-        const result = await this.addUrlRepository.add({
+        const result = await this.urlRepository.add({
             longUrl,
             shortUrl: shortnerUrlResult.value as string
         })
