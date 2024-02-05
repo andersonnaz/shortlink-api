@@ -54,4 +54,17 @@ describe('ShortenUrl', () => {
         await sut.handle(fakeHttpRequest)
         expect(shortenUrlSpy).toHaveBeenCalledWith(fakeHttpRequest.body.longUrl)
     })
+
+    it('Should return 201 (success) if a shortUrl is create', async () => {
+        const { sut } = makeSut()
+        const httpResponse = await sut.handle(fakeHttpRequest)
+        expect(httpResponse).toStrictEqual({
+            statusCode: 201,
+            body: {
+                id: 'any_id',
+                longUrl: 'any_url',
+                shortUrl: 'any_url'
+            }
+        })
+    })
 })
