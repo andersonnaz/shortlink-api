@@ -1,4 +1,5 @@
-import { AddUrlRepository, LoadByLongerUrlRepository, ShortnerUrl } from "../../data/protocols"
+import { ShortnerUrl } from "../../data/protocols"
+import { UrlRepository } from "../../infra/repositories/url-repository"
 
 export interface AddShortenUrl {
     add(longUrl: AddShortenUrl.Params): Promise<AddShortenUrl.Result>
@@ -12,8 +13,7 @@ export namespace AddShortenUrl {
         longUrl: string
     } | undefined
     export type Dependencies = {
-        addUrlRepository: AddUrlRepository
-        loadUrlRepository: LoadByLongerUrlRepository
+        urlRepository: UrlRepository
         shortner: ShortnerUrl
     }
 }
