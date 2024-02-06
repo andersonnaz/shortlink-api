@@ -60,4 +60,11 @@ describe('DbLoadUrlRepository', () => {
         const promise = sut.load(urlProps.shortUrl)
         expect(promise).rejects.toThrow()
     })
+
+    it('Should retrun undefined if LoadLongUrl returns undefined', async () => {
+        const { sut, urlRepositoryStub } = makeSut()
+        jest.spyOn(urlRepositoryStub, 'loadLongUrl').mockReturnValueOnce(undefined)
+        const result = await sut.load(urlProps.shortUrl)
+        expect(result).toBe(undefined)
+    })
 })
