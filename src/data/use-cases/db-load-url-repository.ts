@@ -12,7 +12,7 @@ export class DbLoadUrlRepository implements LoadLongerUrl {
     async load(shortUrl: LoadUrlRepository.Params): Promise<LoadUrlRepository.Result> {
         const longUrl = await this.urlRepository.loadLongUrl(shortUrl)
         if(!longUrl){
-            return null
+            return undefined
         }
         return longUrl
     }
