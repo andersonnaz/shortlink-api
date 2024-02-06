@@ -1,4 +1,4 @@
-import { LoadUrlRepository } from "../../data/protocols"
+import { UrlRepository } from "../../infra/repositories/url-repository"
 
 export interface LoadLongerUrl {
     load(shortUrl: LoadLongerUrl.Params): Promise<LoadLongerUrl.Result>
@@ -7,9 +7,9 @@ export interface LoadLongerUrl {
 export namespace LoadLongerUrl {
     export type Params = string
     export type Result = {
-        longerUrl: string
+        longUrl: string
     } | undefined
     export type Dependencies = {
-        urlRepository: LoadUrlRepository
+        urlRepository: UrlRepository
     }
 }
