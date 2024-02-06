@@ -35,7 +35,7 @@ describe('LoadUrl', () => {
             shortUrl: 'any_url'
         }
     }
-    
+
     it('Should return 500 (ServerError) if LoadUrl throws', async () => {
         const { sut, loadUrlStub } = makeSut()
         const fakeError = new Error()
@@ -43,5 +43,12 @@ describe('LoadUrl', () => {
         jest.spyOn(loadUrlStub, 'load').mockRejectedValueOnce(fakeError)
         const httpResponse = await sut.handle(fakeHttpRequest)
         expect(httpResponse).toEqual(serverError(fakeError))
+    })
+
+    it('Should call LoadUrl with the correct value', async () => {
+        const { sut, loadUrlStub } = makeSut()
+        const loadUrlSpy = jest.spyOn(loadUrlStub, 'load')
+        await sut.handle(fakeHttpRequest)
+        expect(loadUrlSpy).toHaveBeenCalledWith(fakeHttpRequest.body.shortUrl)
     })
 })
