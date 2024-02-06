@@ -11,7 +11,7 @@ export class LoadUrl implements Controller {
 
     async handle(HttpRequest: HttpRequest): Promise<HttpResponse> {
         try {
-            const { shortUrl } = HttpRequest.body
+            const { shortUrl } = HttpRequest.params
             const shortenResult = await this.loadUrl.load(shortUrl)
             if(!shortenResult){
                 return notFound(shortUrl)

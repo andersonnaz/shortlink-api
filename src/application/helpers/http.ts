@@ -2,6 +2,7 @@ import { ServerError } from "../errors"
 import { NotFoundError } from "../errors/not-found-error"
 
 export interface HttpRequest {
+    params?: any,
     body?: any
 }
 
