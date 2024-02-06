@@ -5,7 +5,7 @@
   "author": "Anderson Sales",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node server.ts",
+    "start": "ts-node src/main/server.ts",
     "test": "jest"
   },
   "devDependencies": {
