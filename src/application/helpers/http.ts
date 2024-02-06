@@ -1,4 +1,5 @@
 import { ServerError } from "../errors"
+import { NotFoundError } from "../errors/not-found-error"
 
 export interface HttpRequest {
     body?: any
@@ -27,5 +28,12 @@ export const serverError = (error: Error): HttpResponse => {
     return {
         statusCode: 500,
         body: new ServerError(error.stack as string)
+    }
+}
+
+export const notFound = (param: string): HttpResponse => {
+    return {
+        statusCode: 404,
+        body: new NotFoundError(param)
     }
 }
