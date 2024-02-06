@@ -12,7 +12,7 @@ export class DbAddUrlRepository implements AddShortenUrl {
     }
     
     async add(longUrl: AddShortenUrl.Params): Promise<AddShortenUrl.Result> {
-        const shortUrl = await this.urlRepository.load(longUrl)
+        const shortUrl = await this.urlRepository.loadShortUrl(longUrl)
         if(shortUrl){
             return {
                 id: shortUrl.id,

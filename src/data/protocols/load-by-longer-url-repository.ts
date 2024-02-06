@@ -1,5 +1,5 @@
 export interface LoadByLongerUrlRepository {
-    load(longerUrl: LoadByLongerUrlRepository.Params): Promise<LoadByLongerUrlRepository.Result>
+    loadShortUrl(longerUrl: LoadByLongerUrlRepository.Params): Promise<LoadByLongerUrlRepository.Result>
 }
 
 export namespace LoadByLongerUrlRepository {
