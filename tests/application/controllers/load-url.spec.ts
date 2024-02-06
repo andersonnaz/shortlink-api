@@ -1,5 +1,5 @@
 import { LoadUrl } from "../../../src/application/controllers"
-import { HttpRequest, serverError } from "../../../src/application/helpers"
+import { HttpRequest, notFound, serverError } from "../../../src/application/helpers"
 import { LoadLongerUrl } from "../../../src/domain/use-cases"
 
 const makeLoadLongerUrl = (): LoadLongerUrl => {
@@ -50,5 +50,12 @@ describe('LoadUrl', () => {
         const loadUrlSpy = jest.spyOn(loadUrlStub, 'load')
         await sut.handle(fakeHttpRequest)
         expect(loadUrlSpy).toHaveBeenCalledWith(fakeHttpRequest.body.shortUrl)
+    })
+
+    it('Should return 404 (NotFound) if LoadUrl returns undefined', async () => {
+        const { sut, loadUrlStub } = makeSut()
+        jest.spyOn(loadUrlStub, 'load').mockReturnValueOnce(undefined)
+        const httpResponse = await sut.handle(fakeHttpRequest)
+        expect(httpResponse).toEqual(notFound(fakeHttpRequest.body.shortUrl))
     })
 })
