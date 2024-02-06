@@ -58,4 +58,15 @@ describe('LoadUrl', () => {
         const httpResponse = await sut.handle(fakeHttpRequest)
         expect(httpResponse).toEqual(notFound(fakeHttpRequest.body.shortUrl))
     })
+
+    it('Should return 200 (success) if a shortUrl is found', async () => {
+        const { sut } = makeSut()
+        const httpResponse = await sut.handle(fakeHttpRequest)
+        expect(httpResponse).toStrictEqual({
+            statusCode: 200,
+            body: {
+                longUrl: 'any_url'
+            }
+        })
+    })
 })
