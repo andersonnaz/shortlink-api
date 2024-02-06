@@ -1,6 +1,8 @@
 import express from 'express'
-import { setupApp } from './setup'
+import routes from './routes'
+import setupMiddlewares from './middlewares'
 
 export const app = express()
 
-setupApp(app)
+setupMiddlewares(app)
+routes(app)
