@@ -3,7 +3,7 @@ import { Url } from "../../../domain/models/url";
 import { urlSchema } from "./mongo-schemas";
 
 export interface IUrl extends Document {
-    id: string
+    _id: any
     shortUrl: string
     longUrl: string
 }
@@ -15,7 +15,7 @@ const parseMongoDocumentToUrl = (url: IUrl) => {
         return undefined
     }
     return {
-        id: url.id,
+        id: url._id,
         shortUrl: url.shortUrl,
         longUrl: url.longUrl
     }
