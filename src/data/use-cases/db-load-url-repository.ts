@@ -1,6 +1,6 @@
 import { LoadLongerUrl } from "../../domain/use-cases";
 import { UrlRepository } from "../../infra/repositories/url-repository";
-import { LoadUrlRepository } from "../protocols";
+import { LoadUrlRepository } from "../protocols/db/url";
 
 export class DbLoadUrlRepository implements LoadLongerUrl {
     private readonly urlRepository: UrlRepository

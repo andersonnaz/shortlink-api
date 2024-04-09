@@ -1,5 +1,5 @@
 
-import { ShortnerUrl } from "../../data/protocols";
+import { ShortnerUrl } from "../../data/protocols/db/url";
 import { Decoder, Encoder, RandomNumberGenerator } from "../helpers/protocols";
 
 export class ShortnerUrlService implements ShortnerUrl {

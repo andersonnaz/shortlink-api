@@ -1,6 +1,6 @@
 import { AddUser } from "../../domain/use-cases/add-user";
 import { HashGenerator } from "../protocols/cryptography";
-import { AddUserRepository } from "../protocols/db";
+import { AddUserRepository } from "../protocols/db/user";
 
 export class DbAddUser implements AddUser {
     private readonly userRepository: AddUserRepository

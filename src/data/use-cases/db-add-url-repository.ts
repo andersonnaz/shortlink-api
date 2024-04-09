@@ -1,6 +1,6 @@
 import { AddShortenUrl } from "../../domain/use-cases/add-shorten-url";
 import { UrlRepository } from "../../infra/repositories/url-repository";
-import { ShortnerUrl } from "../protocols";
+import { ShortnerUrl } from "../protocols/db/url";
 
 export class DbAddUrlRepository implements AddShortenUrl {
     private readonly urlRepository: UrlRepository

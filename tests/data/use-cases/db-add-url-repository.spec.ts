@@ -1,4 +1,4 @@
-import { AddUrlRepository, LoadByLongerUrlRepository, LoadUrlRepository, ShortnerUrl } from "../../../src/data/protocols"
+import { AddUrlRepository, LoadByLongerUrlRepository, LoadUrlRepository, ShortnerUrl } from "../../../src/data/protocols/db/url"
 import { DbAddUrlRepository } from "../../../src/data/use-cases/db-add-url-repository"
 import { AddShortenUrl } from "../../../src/domain/use-cases/add-shorten-url"
 import { UrlRepository } from "../../../src/infra/repositories/url-repository"

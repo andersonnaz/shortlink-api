@@ -1,5 +1,5 @@
 import { HashGenerator } from "../../data/protocols/cryptography"
-import { AddUserRepository } from "../../data/protocols/db"
+import { AddUserRepository } from "../../data/protocols/db/user"
 import { User } from "../models/user"
 
 export interface AddUser {

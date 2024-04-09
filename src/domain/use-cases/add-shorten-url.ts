@@ -1,4 +1,4 @@
-import { ShortnerUrl } from "../../data/protocols"
+import { ShortnerUrl } from "../../data/protocols/db/url"
 import { UrlRepository } from "../../infra/repositories/url-repository"
 
 export interface AddShortenUrl {

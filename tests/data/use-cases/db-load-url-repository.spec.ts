@@ -1,4 +1,4 @@
-import { AddUrlRepository, LoadByLongerUrlRepository, LoadUrlRepository } from "../../../src/data/protocols"
+import { AddUrlRepository, LoadByLongerUrlRepository, LoadUrlRepository } from "../../../src/data/protocols/db/url"
 import { DbLoadUrlRepository } from "../../../src/data/use-cases/db-load-url-repository"
 import { UrlRepository } from "../../../src/infra/repositories/url-repository"
 

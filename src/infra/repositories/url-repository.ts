@@ -1,4 +1,4 @@
-import { AddUrlRepository, LoadByLongerUrlRepository, LoadUrlRepository } from "../../data/protocols";
+import { AddUrlRepository, LoadByLongerUrlRepository, LoadUrlRepository } from "../../data/protocols/db/url";
 import { parseMongoDocumentToUrl, urlMongo } from "./mongodb/mongo-helper";
 
 export class UrlRepository implements AddUrlRepository, LoadByLongerUrlRepository, LoadUrlRepository {
