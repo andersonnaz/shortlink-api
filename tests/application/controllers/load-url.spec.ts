@@ -31,7 +31,7 @@ const makeSut = (): SutTypes => {
 
 describe('LoadUrl', () => {
     const fakeHttpRequest: HttpRequest = {
-        body: {
+        params: {
             shortUrl: 'any_url'
         }
     }
@@ -49,14 +49,14 @@ describe('LoadUrl', () => {
         const { sut, loadUrlStub } = makeSut()
         const loadUrlSpy = jest.spyOn(loadUrlStub, 'load')
         await sut.handle(fakeHttpRequest)
-        expect(loadUrlSpy).toHaveBeenCalledWith(fakeHttpRequest.body.shortUrl)
+        expect(loadUrlSpy).toHaveBeenCalledWith(fakeHttpRequest.params.shortUrl)
     })
 
     it('Should return 404 (NotFound) if LoadUrl returns undefined', async () => {
         const { sut, loadUrlStub } = makeSut()
         jest.spyOn(loadUrlStub, 'load').mockReturnValueOnce(undefined)
         const httpResponse = await sut.handle(fakeHttpRequest)
-        expect(httpResponse).toEqual(notFound(fakeHttpRequest.body.shortUrl))
+        expect(httpResponse).toEqual(notFound(fakeHttpRequest.params.shortUrl))
     })
 
     it('Should return 200 (success) if a shortUrl is found', async () => {
