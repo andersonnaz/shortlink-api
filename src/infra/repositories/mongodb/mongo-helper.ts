@@ -24,8 +24,9 @@ const parseMongoDocumentToUrl = (url: IUrl) => {
         return undefined
     }
     return {
-        ...url,
-        id: url._id
+        id: url._id,
+        shortUrl: url.shortUrl,
+        longUrl: url.longUrl
     }
 }
 
@@ -34,8 +35,10 @@ const parseMongoDocumentToUser = (user: IUser) => {
         return undefined
     }
     return {
-        ...user,
-        id: user._id
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        password: user.password
     }
 }
 
