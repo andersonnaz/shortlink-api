@@ -16,6 +16,27 @@ const urlSchema = (): Schema => {
     })
 }
 
+const userSchema = (): Schema => {
+    return new Schema({
+        name: {
+            type: String,
+            require: true
+        },
+        email: {
+            type: String,
+            require: true,
+            index: {
+                unique: true
+            }
+        },
+        password: {
+            type: String,
+            require: true
+        }
+    })
+}
+
 export {
-    urlSchema
+    urlSchema,
+    userSchema
 }
