@@ -1,5 +1,4 @@
-import { ServerError } from "../errors"
-import { NotFoundError } from "../errors/not-found-error"
+import { ServerError, NotFoundError, ConflictEmailUserError } from "../errors"
 
 export interface HttpRequest {
     params?: any,
@@ -36,5 +35,12 @@ export const notFound = (param: string): HttpResponse => {
     return {
         statusCode: 404,
         body: new NotFoundError(param)
+    }
+}
+
+export const conflict = (): HttpResponse => {
+    return {
+        statusCode: 409,
+        body: new ConflictEmailUserError()
     }
 }
