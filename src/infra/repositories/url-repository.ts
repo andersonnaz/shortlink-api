@@ -10,7 +10,7 @@ export class UrlRepository implements AddUrlRepository, LoadByLongerUrlRepositor
     }
 
     async loadShortUrl(longerUrl: LoadByLongerUrlRepository.Params): Promise<LoadByLongerUrlRepository.Result> {
-        const url = await urlMongo.findOne({ longUrl: longerUrl})
+        const url = await urlMongo.findOne({ longUrl: longerUrl })
         const longUrl = parseMongoDocumentToUrl(url)
         return longUrl
     }
@@ -20,6 +20,4 @@ export class UrlRepository implements AddUrlRepository, LoadByLongerUrlRepositor
         const shortUrl = parseMongoDocumentToUrl(url)
         return shortUrl
     }
-
-    
 }

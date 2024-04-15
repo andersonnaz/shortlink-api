@@ -7,5 +7,6 @@ export namespace LoadByLongerUrlRepository {
     export type Result = {
         id: string
         shortUrl: string
+        longUrl: string
     }
 }
