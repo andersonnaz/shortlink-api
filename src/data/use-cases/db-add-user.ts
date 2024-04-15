@@ -6,9 +6,9 @@ export class DbAddUser implements AddUser {
     private readonly userRepository: AddUserRepository
     private readonly hashService: HashGenerator
 
-    constructor({ userRepository, hashServise }: AddUser.Dependencies){
+    constructor({ userRepository, hashService }: AddUser.Dependencies){
         this.userRepository = userRepository
-        this.hashService = hashServise
+        this.hashService = hashService
     }
 
     async add(params: AddUser.Params): Promise<AddUser.Result> {
@@ -18,15 +18,6 @@ export class DbAddUser implements AddUser {
             email: params.email,
             password: hashedPassword
         })
-        if(!user.isSuccess){
-            return {
-                isSuccess: false,
-                error: user.error
-            }
-        }
-        return {
-            isSuccess: true,
-            data: user.data
-        }
+        return user
     }
 }
