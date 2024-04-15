@@ -1,5 +1,3 @@
-import { User } from "../../../../domain/models/user"
-
 export interface AddUserRepository {
     add(params: AddUserRepository.Params): Promise<AddUserRepository.Result>
 }
@@ -12,8 +10,9 @@ export namespace AddUserRepository {
     }
 
     export type Result = {
-        isSuccess: boolean
-        error?: Error
-        data?: User
-    }
+        id: string
+        name: string
+        email: string
+        password: string
+    } | undefined
 }
