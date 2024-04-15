@@ -4,7 +4,8 @@ import { parseMongoDocumentToUser, userMongo } from "./mongodb/mongo-helper";
 export class UserRepository implements AddUserRepository, LoadUserByEmailRepository {
 
     async add(params: AddUserRepository.Params): Promise<AddUserRepository.Result> {
-        if(!this.load({ email: params.email })){
+        const emailAlreadyExists = await this.load({ email: params.email })
+        if(emailAlreadyExists){
             return undefined
         }
         const user = await userMongo.create(params)
