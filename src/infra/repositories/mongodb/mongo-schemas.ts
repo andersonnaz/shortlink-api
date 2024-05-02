@@ -40,7 +40,29 @@ const userSchema = (): Schema => {
     })
 }
 
+const tokenManagerSchema = (): Schema => {
+    return new Schema({
+        token: {
+            type: String,
+            require: true
+        },
+        tokenCreatedAt: {
+            type: Date,
+            require: true
+        },
+        userId: {
+            type: String,
+            require: true
+        },
+        recoveryPasswordCode: {
+            type: Number,
+            require: false
+        }
+    })
+}
+
 export {
     urlSchema,
-    userSchema
+    userSchema,
+    tokenManagerSchema
 }
