@@ -16,7 +16,7 @@ export namespace AddUser {
         id: string,
         name: string
         email: string
-        password: string
+        verifiedEmail: boolean
     }
 
     export type Dependencies = {
