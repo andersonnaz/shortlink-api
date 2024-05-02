@@ -10,10 +10,12 @@ export interface IUrl extends Document {
 }
 
 export interface IUser extends Document {
-    _id: any,
-    name: string,
-    email: string,
+    _id: any
+    name: string
+    email: string
     password: string
+    verifiedEmail: boolean
+
 }
 
 const urlMongo = model<Url>("Url", urlSchema())
@@ -38,7 +40,8 @@ const parseMongoDocumentToUser = (user: IUser) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        password: user.password
+        password: user.password,
+        verifiedEmail: user.verifiedEmail
     }
 }
 
