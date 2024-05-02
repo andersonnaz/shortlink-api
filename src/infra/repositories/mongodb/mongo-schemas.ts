@@ -32,6 +32,10 @@ const userSchema = (): Schema => {
         password: {
             type: String,
             require: true
+        },
+        verifiedEmail: {
+            type: Boolean,
+            require: true
         }
     })
 }
