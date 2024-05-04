@@ -8,7 +8,7 @@ export class UserRepository implements AddUserRepository, LoadUserByEmailReposit
         if(emailAlreadyExists){
             return undefined
         }
-        const user = await userMongo.create(params)
+        const user = await userMongo.create({...params, verifiedEmail: false})
         const result = parseMongoDocumentToUser(user)
         return result
     }
