@@ -12,5 +12,6 @@ export namespace LoadUserByEmailRepository {
         name: string
         email: string
         password: string
+        verifiedEmail: boolean
     } | undefined
 }
