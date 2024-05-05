@@ -13,5 +13,6 @@ export namespace AddUserRepository {
         id: string
         name: string
         email: string
+        verifiedEmail: boolean
     } | undefined
 }
