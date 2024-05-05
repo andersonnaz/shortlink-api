@@ -1,3 +1,4 @@
+import { EmailService } from "../../data/protocols/communication/email-service"
 import { HashGenerator } from "../../data/protocols/cryptography"
 import { AddUserRepository } from "../../data/protocols/db/user"
 
@@ -22,5 +23,6 @@ export namespace AddUser {
     export type Dependencies = {
         userRepository: AddUserRepository
         hashService: HashGenerator
+        emailService: EmailService
     }
 }
