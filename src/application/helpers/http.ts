@@ -17,6 +17,13 @@ export const success = (data: any): HttpResponse => {
     }
 }
 
+export const updateSuccess = (): HttpResponse => {
+    return {
+        statusCode: 200,
+        body: 'update success'
+    }
+}
+
 export const create = (data: any): HttpResponse => {
     return {
         statusCode: 201,
