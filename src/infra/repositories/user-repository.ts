@@ -1,7 +1,7 @@
-import { AddUserRepository, LoadUserByEmailRepository } from "../../data/protocols/db/user";
+import { AddUserRepository, LoadUserByEmailRepository, UpdateUserVerifiedEmailRepository } from "../../data/protocols/db/user";
 import { parseMongoDocumentToUser, userMongo } from "./mongodb/mongo-helper";
 
-export class UserRepository implements AddUserRepository, LoadUserByEmailRepository {
+export class UserRepository implements AddUserRepository, LoadUserByEmailRepository, UpdateUserVerifiedEmailRepository {
 
     async add(params: AddUserRepository.Params): Promise<AddUserRepository.Result> {
         const emailAlreadyExists = await this.load({ email: params.email })
@@ -20,5 +20,15 @@ export class UserRepository implements AddUserRepository, LoadUserByEmailReposit
         }
         const result = parseMongoDocumentToUser(user)
         return result
+    }
+
+    async update(email: UpdateUserVerifiedEmailRepository.Params): Promise<UpdateUserVerifiedEmailRepository.Result> {
+        const user = await this.load(email)
+        if(!user){
+            return undefined
+        }
+        await userMongo.updateOne({ email }, { ...user, verifiedEmail: true })
+        return true
+
     }
 }
